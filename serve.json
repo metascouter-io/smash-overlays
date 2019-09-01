@@ -1,0 +1,10 @@
+{
+  "public": "build"
+  "renderSingle": false,
+  "rewrites": [
+    { "source": "xsplit/config", "destination": "/xsplit/config.html" }
+  ],
+  "cleanUrls": [
+    "/!xsplit/**"
+  ]
+}

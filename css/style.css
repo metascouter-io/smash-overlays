@@ -1,0 +1,23 @@
+label,
+input[type=text],
+
+textarea {
+  display: inline-block;
+}
+
+label {
+  color: #ddd;
+  width: 50px;
+  vertical-align: top;
+  font-family: Arial;
+  font-size: 12px;
+}
+
+input[type=text],
+textarea {
+  width: 250px;
+}
+
+#config {
+  margin-top: 40px;
+}
