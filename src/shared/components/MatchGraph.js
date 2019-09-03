@@ -37,7 +37,7 @@ class MatchGraph extends Component {
           labels: {
             fontSize: 20,
             fontColor: '#fff',
-            fontFamily: 'Montserrat',
+            fontFamily: 'Nexa',
           }
         },
         scales: {
@@ -49,7 +49,7 @@ class MatchGraph extends Component {
               fontColor: '#ffffff',
               maxTicksLimit: 7,
               fontSize: 20,
-              fontFamily: 'Montserrat',
+              fontFamily: 'Nexa',
               callback: function(value, index, values) {
                 return value + '%  ';
               }
@@ -62,7 +62,7 @@ class MatchGraph extends Component {
               labelString: 'Health (%)',
               fontColor: '#ffffff',
               fontSize: 24,
-              fontFamily: 'Montserrat',
+              fontFamily: 'Nexa',
             }
           }],
           xAxes: [{
@@ -78,7 +78,7 @@ class MatchGraph extends Component {
             ticks: {
               fontColor: '#ffffff',
               fontSize: 16,
-              fontFamily: 'Montserrat',
+              fontFamily: 'Nexa',
               callback: function(value, index, values) {
                 let time = value;
                 let minutes = Math.floor(time / 60);
@@ -97,7 +97,7 @@ class MatchGraph extends Component {
               labelString: 'Time (m:ss)',
               fontColor: '#ffffff',
               fontSize: 24,
-              fontFamily: 'Montserrat',
+              fontFamily: 'Nexa',
             }
           }]
         },
