@@ -8,10 +8,23 @@ import MatchGraph from '../MatchGraph';
 import '../../Animations.scss';
 
 class Analysis extends Component {
+  toggler = null;
+
   constructor(props) {
     super(props);
     this.state = {
       showLogo: false
+    }
+  }
+
+  toggleLogo() {
+    if (!this.toggler) {
+      this.toggler = setInterval(() => {
+        console.log(this.state.showLogo);
+        this.setState({
+          showLogo: !this.state.showLogo
+        })
+      }, 5000)
     }
   }
 
@@ -33,11 +46,9 @@ class Analysis extends Component {
 
     const classes = `${className} ${config.visible ? '' : 'display-none'} ${config.active ? 'visible' : ''} ${config.transparent_bg ? '' : 'withBackground'}`
 
-    setTimeout(() => {
-      this.setState({
-        showLogo: true
-      })
-    }, 5000)
+    if (config.active) {
+      this.toggleLogo();
+    }
 
     return (
       <div className={classes}>
