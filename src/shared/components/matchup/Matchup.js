@@ -23,7 +23,7 @@ class Matchup extends Component {
         <div className={className}>
         { stats &&
           <React.Fragment>
-            <div className={`fade-in ${config.active && 'visible'}`} style={{background: 'black'}}>
+            <div className={`fade-in ${config.active && 'visible'}`}>
               <div className="statsView">
                 <div className="headerRow">
                   <div className={`playerName player1 ${config.active && 'visible'}`}><h2> {playerStats[1].player} </h2></div>

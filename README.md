@@ -1,4 +1,4 @@
-# Metascouter SFV Stats Overlays
+# Metascouter Stats Overlays
 
 React front-end to the Metascouter stats API. It will poll the endpoint for updates regularly, and then display those data points on the overlay.
 

@@ -8,10 +8,18 @@ import MatchGraph from '../MatchGraph';
 import '../../Animations.scss';
 
 class Analysis extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showLogo: false
+    }
+  }
+
   render() {
     const { matchStats, config } = this.props;
     const stats = matchStats;
     let { className } = this.props;
+    const { showLogo } = this.state;
 
     const playerStats = Object.values(stats.players).reduce((acc, s) => {
       acc[s.player] = s;
@@ -25,6 +33,12 @@ class Analysis extends Component {
 
     const classes = `${className} ${config.visible ? '' : 'display-none'} ${config.active ? 'visible' : ''} ${config.transparent_bg ? '' : 'withBackground'}`
 
+    setTimeout(() => {
+      this.setState({
+        showLogo: true
+      })
+    }, 5000)
+
     return (
       <div className={classes}>
         { stats &&
@@ -35,12 +49,12 @@ class Analysis extends Component {
                   Graph of Match { stats.index_in_set }
                 </div>
               </div>
-              <div className="graph">
+              <div className={`graph ${showLogo ? '' : ''}`}>
                 <MatchGraph game={config.game}
                             playerCharacters={playerCharacters}
                             eventData={stats.stats.event_data} />
               </div>
-              <div className="logo">
+              <div className={`logo ${showLogo ? 'active' : ''}`}>
                 <MetascouterLogo />
               </div>
             </div>
@@ -81,10 +95,13 @@ const StyledAnalysis = styled(Analysis)`
       }
       .logo {
         transition: opacity .4s ease-in 1s ;
-        opacity: 1;
+        opacity: 0;
+        &.active {
+          opacity: 1;
+        }
       }
       .graph {
-        transition: opacity .4s ease-in 1s ;
+        transition: opacity 0.4s ease-in;
         opacity: 1;
       }
     }
@@ -105,7 +122,7 @@ const StyledAnalysis = styled(Analysis)`
         opacity: 0;
       }
     }
-    width: 35%;
+    width: 38%;
     right: 50px;
     bottom: 150px;
     position: absolute;
@@ -129,14 +146,19 @@ const StyledAnalysis = styled(Analysis)`
     }
 
     .graph {
+      height: 440px;
     }
 
 
     .logo {
-      height: 100px;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      background-color: black;
     }
     .metascouterLogo {
-      height: 120px;
+      height: 140px;
       position: relative;
       display: flex;
       justify-content: center;
