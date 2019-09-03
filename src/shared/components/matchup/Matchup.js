@@ -26,14 +26,23 @@ class Matchup extends Component {
             <div className={`fade-in ${config.active && 'visible'}`}>
               <div className="statsView">
                 <div className="headerRow">
-                  <div className={`playerName player1 ${config.active && 'visible'}`}><h2> {playerStats[1].player} </h2></div>
-                  <div className={`logo ${config.active && 'visible'}`}>
+                  <div className="spacer"></div>
+                  <div className="headerContainer">
+                    <div className={`playerName player1 ${config.active && 'visible'}`}>
+                      <h1> {playerStats[1].wins} </h1>
+                    </div>
+                    <div className={`playerName ${config.active && 'visible'}`}>
+                      <h2> {playerStats[1].player} </h2>
+                      <div className="separator">
+                        v.s.
+                      </div>
+                      <h2>{playerStats[2].player} </h2>
+                    </div>
+                    <div className={`playerName player2 ${config.active && 'visible'}`}>
+                      <h1> {playerStats[2].wins} </h1> 
+                    </div>
                   </div>
-                  <div className={`playerName player2 ${config.active && 'visible'}`}><h2> {playerStats[2].player} </h2></div>
-                </div>
-                <div className="headerRow">
-                  <div className={`playerName player1 ${config.active && 'visible'}`}><h1> {playerStats[1].wins} </h1></div>
-                  <div className={`playerName player2 ${config.active && 'visible'}`}><h1> {playerStats[2].wins} </h1></div>
+                  <div className="spacer"></div>
                 </div>
 
                 <PlayerStatsRow 
@@ -162,27 +171,47 @@ const StyledMatchup = styled(Matchup)`
     align-items: center;
   }
 
+  .headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+  }
   .headerRow {
     display: flex;
     flex-flow: row;
-    justify-content: space-around;
+    justify-content: space-between;
     background: ${props => props.theme.brightColor};
 
+    .separator {
+      font-size: 1.5rem;
+      line-height: 100%;
+      padding: 1rem;
+    }
+    .spacer {
+      width: 8%;
+    }
     .playerName
     {
       color: ${props => props.theme.brightText};
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      h2 {
+        font-size: 2rem;
+      }
     }
 
     .playerName.player1 {
       opacity: 0;
       transform: translateY(-10px);
-      padding-left: 1rem;
     }
 
     .playerName.player2 {
       opacity: 0;
       transform: translateY(-10px);
-      padding-right: 1rem;
+      text-align: right;
     }
 
     .playerName.player1.visible, .playerName.player2.visible {
@@ -192,6 +221,7 @@ const StyledMatchup = styled(Matchup)`
       transition: opacity .2s ease-in .5s, transform .2s ease-in .5s;
 
       h2 {
+        font-size: 2rem;
         padding: 1px;
         margin-top: 5px;
         margin-bottom: 0px;
