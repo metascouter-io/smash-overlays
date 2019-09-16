@@ -8,31 +8,11 @@ import MatchGraph from '../MatchGraph';
 import '../../Animations.scss';
 
 class Analysis extends Component {
-  toggler = null;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      showLogo: false
-    }
-  }
-
-  toggleLogo() {
-    if (!this.toggler) {
-      this.toggler = setInterval(() => {
-        console.log(this.state.showLogo);
-        this.setState({
-          showLogo: !this.state.showLogo
-        })
-      }, 5000)
-    }
-  }
 
   render() {
     const { matchStats, config } = this.props;
     const stats = matchStats;
     let { className } = this.props;
-    const { showLogo } = this.state;
 
     const playerStats = Object.values(stats.players).reduce((acc, s) => {
       acc[s.player] = s;
@@ -46,10 +26,6 @@ class Analysis extends Component {
 
     const classes = `${className} ${config.visible ? '' : 'display-none'} ${config.active ? 'visible' : ''} ${config.transparent_bg ? '' : 'withBackground'}`
 
-    if (config.active) {
-      this.toggleLogo();
-    }
-
     return (
       <div className={classes}>
         { stats && stats.active &&
@@ -57,15 +33,15 @@ class Analysis extends Component {
             <div className={`stats fade-in ${config.active ? 'visible' : ''}`}>
               <div className="title">
                 <div className="text">
-                  Graph of Match { stats.index_in_set }
+                  Health % vs. Time in Match { stats.index_in_set }
                 </div>
               </div>
-              <div className={`graph ${showLogo ? '' : ''}`}>
+              <div className={`graph`}>
                 <MatchGraph game={config.game}
                             playerCharacters={playerCharacters}
                             eventData={stats.stats.event_data} />
               </div>
-              <div className={`logo ${showLogo ? 'active' : ''}`}>
+              <div className={`logo`}>
                 <MetascouterLogo />
               </div>
             </div>
@@ -106,10 +82,7 @@ const StyledAnalysis = styled(Analysis)`
       }
       .logo {
         transition: opacity .4s ease-in 1s ;
-        opacity: 0;
-        &.active {
-          opacity: 1;
-        }
+        opacity: 1;
       }
       .graph {
         transition: opacity 0.4s ease-in;
@@ -157,7 +130,7 @@ const StyledAnalysis = styled(Analysis)`
     }
 
     .graph {
-      height: 440px;
+      height: 480px;
     }
 
 

@@ -54,7 +54,7 @@ export default styled(HeadToHead)`
   .verticalSep {
      width: 90%;
      margin-left: 5%;
-     height: 1px;
+     height: 5px;
      background: ${props => props.theme.colorColor};
 
      opacity: 0;
