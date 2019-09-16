@@ -123,16 +123,7 @@ class MatchGraph extends Component {
         game: newProps.game,
         playerCharacters: newProps.playerCharacters
       })
-      this.updateStockIcons();
     }
-  }
-
-  updateStockIcons() {
-    this.setState({
-      plugins: {
-        afterDraw: this.stockIconPlugin()
-      }
-    })
   }
 
   updateSeries(eventData) {
