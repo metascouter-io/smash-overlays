@@ -52,7 +52,7 @@ class Analysis extends Component {
 
     return (
       <div className={classes}>
-        { stats &&
+        { stats && stats.active &&
           <React.Fragment>
             <div className={`stats fade-in ${config.active ? 'visible' : ''}`}>
               <div className="title">
