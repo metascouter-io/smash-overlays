@@ -25,30 +25,11 @@ class ObsWrap extends SharedWrapMixin {
   }
 
   componentDidMount() {
-    // this.setupSceneChange();
     this.setupActiveChange();
     this.setupVisibilityChange();
     this.setIntervalForFetchingActiveResources();
     this.fetchActiveResources();
   }
-
-  //componentDidUpdate() {
-  //  this.setState({
-  //    config: {
-  //      ...this.state.config,
-  //      active: false
-  //    }
-  //  })
-  //  setTimeout(() => { 
-  //    this.setState({
-  //      config: {
-  //        ...this.state.config,
-  //        active: true
-  //      }
-  //    })
-  //    console.log("Updated");
-  //  }, 0);
-  //}
 
   setupSceneChange = () => {
     window.addEventListener('obsSceneChanged', (evt) => {
