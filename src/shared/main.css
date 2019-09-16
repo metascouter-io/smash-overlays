@@ -2,8 +2,7 @@ body {
   margin: 0;
   /* font-family: 'roboto-local', 'Roboto' */;
   /* font-family: 'futurabold', 'Futura' */;
-  /* font-family: 'montserrat', 'Montserrat' */;
-   font-family: 'nexa', 'Nexa';
+   font-family: 'montserrat', 'Montserrat';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -72,25 +71,4 @@ code {
   font-style: normal;
   font-weight: normal;
   src: url('./fonts/Montserrat-Bold.otf')
-}
-
-@font-face {
-  font-family: 'nexa';
-  font-style: normal;
-  font-weight: 600;
-  src: url('./fonts/Nexa-Bold.otf')
-}
-
-@font-face {
-  font-family: 'nexa';
-  font-style: normal;
-  font-weight: normal;
-  src: url('./fonts/Nexa-Regular.otf')
-}
-
-@font-face {
-  font-family: 'nexa';
-  font-style: normal;
-  font-weight: 200;
-  src: url('./fonts/Nexa-Light.otf')
 }
