@@ -159,6 +159,7 @@ class MatchGraph extends Component {
         borderColor,
         pointBackgroundColor,
         borderWidth: 5,
+        pointRadius: 0,
         data: ed.health_data.map(d => ({
           x: d[0],
           y: d[1],
