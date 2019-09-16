@@ -90,6 +90,10 @@ const StyledAnalysis = styled(Analysis)`
   }
 
   .stats {
+    border-color: #ff5e00;
+    border-width: 10px;
+    border-style: solid;
+    box-shadow: 0px 0px 20px 11px black;
     
     &.fade-in.visible {
       transition: opacity .5s ease-in, transform .4s ease-in;
