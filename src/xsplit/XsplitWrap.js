@@ -1,88 +1,17 @@
 import React, { Component } from 'react';
 import { ready, SourcePluginWindow, Source } from 'xjs-framework/dist/xjs-es2015';
-import { defaultConfig } from '../shared/services/defaultConfig';
-import ActiveResources from '../shared/services/api/smash';
+import SharedWrapMixin from '../shared/SharedWrapMixin';
 
-class XsplitWrapper extends Component {
-  fetchPlayersInterval = undefined;
-  activeResources = new ActiveResources('ssbm');
+class XsplitWrapper extends SharedWrapMixin {
 
   constructor(props) {
     super(props);
     
     this.state = {
-       config: defaultConfig(),
-       source: undefined,
-       configLoaded: false,
-       active_resources: false,
-       stats: undefined
-       }
-  }
-
-  fetchActiveResources = () => {
-    this.activeResources.game({ user: this.state.config.user })
-      .then((results) => results.data)
-      .then((results) => {
-        let game = null;
-        if (results.game) {
-          game = results.game;
-        } else {
-          game = 'ssbm';
-        }
-        if (this.activeResources.gameName !== game) {
-          this.activeResources.gameName = game;
-        }
-        // Dont fetch set if already fetching
-        if (!this.state.fetchingSet) {
-          this.setState({
-            fetchingSet: true
-          })
-          this.activeResources.set({ user: this.state.config.user })
-            .then((results) => results.data)
-            .then((results) => {
-              this.setState({
-                setStats: results,
-                fetchingSet: false,
-                config: {
-                  ...this.state.config,
-                  game
-                }
-              });
-            }
-          );
-        }
-        // Dont fetch set if already fetching
-        if (!this.state.fetchingMatch) {
-          this.setState({
-            fetchingMatch: true
-          })
-          this.activeResources.match({ user: this.state.config.user })
-            .then((results) => results.data)
-            .then((results) => {
-              this.setState({
-                matchStats: results,
-                fetchingMatch: false,
-                config: {
-                  ...this.state.config,
-                  game
-                }
-              });
-            }
-          );
-        }
-      });
-  }
-  
-  setIntervalForFetchingActiveResources() {
-    if(this.fetchPlayersInterval === undefined) {
-      this.fetchPlayersInterval = setInterval(this.fetchActiveResources, 2000)
-    }
-  }
-
-  clearIntervalForFetchingActiveResources() {
-    if(this.fetchPlayersInterval !== undefined) {
-      clearInterval(this.fetchPlayersInterval);
-      this.fetchPlayersInterval = undefined
+      ...this.state,
+      source: undefined,
+      configLoaded: false,
+      active_resources: false,
     }
   }
 
@@ -129,14 +58,14 @@ class XsplitWrapper extends Component {
   }  
 
   render() {
-    const { config, configLoaded, stats } = this.state;
+    const { config, configLoaded, matchStats, setStats, theme } = this.state;
 
     return (
       <div className="App" style={{ width: '1920px', height: '1080px', overflow: 'hidden' }}>
-        { stats && configLoaded &&
+        { matchStats && setStats && config && theme && configLoaded &&
           React.cloneElement(
             this.props.children,
-            { stats, config }
+            { config, matchStats, setStats, theme }
           )
         }
       </div>

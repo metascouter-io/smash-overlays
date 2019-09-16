@@ -19,6 +19,10 @@ class Matchup extends Component {
       return acc;
     }, {})
 
+    if (!stats.active) {
+      return null;
+    }
+
     return (
         <div className={className}>
         { stats &&
@@ -129,7 +133,7 @@ class Matchup extends Component {
                   delay={{
                     seconds: "1.0s"
                   }} />
-                <div class="metascouterLogo">
+                <div className="metascouterLogo">
                   <MetascouterLogo />
                 </div>
               </div>

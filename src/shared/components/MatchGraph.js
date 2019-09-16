@@ -26,6 +26,8 @@ class MatchGraph extends Component {
     const { datasets } = this.generateDatasets(props.eventData);
 
     this.state = {
+      game: props.game,
+      playerCharacters: props.playerCharacters,
       data: {
         datasets
       },
@@ -105,64 +107,7 @@ class MatchGraph extends Component {
       plugins: [
         {
           // Add stock icons to data where a kill happens
-          afterDraw: (chart) => {
-            const images = {
-              1: generateStockAnnotation(props.game, props.playerCharacters[1]),
-              2: generateStockAnnotation(props.game, props.playerCharacters[2]),
-            }
-            const colors = {
-              1: '#fd5f5f',
-              2: '#3232ff'
-            }
-            chart.config.data.datasets.map((dataset, didx) => {
-              dataset.data.map((health, idx) => {
-                if (health.died) {
-                  let x = null;
-                  try {
-                    x = chart.config.data.datasets[didx]._meta[0].data[idx+1]._model.x;
-                  } catch {
-                    x = chart.config.data.datasets[didx]._meta[0].data[idx]._model.x;
-                  }
-                  const y = 20;
-
-                  // Stake 
-                  chart.ctx.beginPath();
-                  let gradient = chart.ctx.createLinearGradient(x, y, x, y + 50);
-                  gradient.addColorStop(0, colors[didx+1]);
-                  gradient.addColorStop(1, '#00000000');
-                  chart.ctx.strokeStyle = gradient;
-                  chart.ctx.lineWidth = 5;
-                  chart.ctx.moveTo(x, y);
-                  chart.ctx.lineTo(x, y + 70);
-                  chart.ctx.stroke();
-                  chart.ctx.closePath();
-
-                  // Gradient 
-                  chart.ctx.beginPath();
-                  gradient = chart.ctx.createRadialGradient(x, y, 10, x, y, 30);
-                  gradient.addColorStop(0, colors[didx+1]);
-                  gradient.addColorStop(1, '#00000000');
-                  chart.ctx.arc(x, y, 40, 0, 2 * Math.PI);
-                  chart.ctx.fillStyle = gradient;
-                  chart.ctx.fill();
-                  chart.ctx.closePath();
-
-                  // Draw stock icons
-                  const image = images[didx + 1]
-                  chart.ctx.drawImage(image, x - image.width / 2, y - image.height / 2, image.width, image.height);
-                  
-                  // Draw slash through icons
-                  chart.ctx.beginPath();
-                  chart.ctx.strokeStyle = 'red';
-                  chart.ctx.lineWidth = 8;
-                  chart.ctx.moveTo(x - 10, y - 10);
-                  chart.ctx.lineTo(x + 10, y + 10);
-                  chart.ctx.stroke();
-                  chart.ctx.closePath();
-                }
-              })
-            })
-          }
+          afterDraw: this.stockIconPlugin()
         }
       ]
     }
@@ -170,6 +115,15 @@ class MatchGraph extends Component {
 
   componentWillReceiveProps(newProps) {
     this.updateSeries(newProps.eventData);
+
+    if (this.state.game != newProps.game ||
+        this.state.playerCharacters[0] != newProps.playerCharacters[0] ||
+        this.state.playerCharacters[1] != newProps.playerCharacters[1]) {
+      this.setState({
+        game: newProps.game,
+        playerCharacters: newProps.playerCharacters
+      })
+    }
   }
 
   updateSeries(eventData) {
@@ -237,6 +191,67 @@ class MatchGraph extends Component {
 
     return { datasets };
   }
+
+  stockIconPlugin() {
+    return (chart) => {
+      const images = {
+        1: generateStockAnnotation(this.state.game, this.state.playerCharacters[1]),
+        2: generateStockAnnotation(this.state.game, this.state.playerCharacters[2]),
+      }
+      const colors = {
+        1: '#fd5f5f',
+        2: '#3232ff'
+      }
+      chart.config.data.datasets.map((dataset, didx) => {
+        dataset.data.map((health, idx) => {
+          if (health.died) {
+            let x = null;
+            try {
+              x = Object.values(chart.config.data.datasets[didx]._meta)[0].data[idx+1]._model.x;
+            } catch {
+              x = Object.values(chart.config.data.datasets[didx]._meta)[0].data[idx]._model.x;
+            }
+            const y = 20;
+
+            // Stake 
+            chart.ctx.beginPath();
+            let gradient = chart.ctx.createLinearGradient(x, y, x, y + 50);
+            gradient.addColorStop(0, colors[didx+1]);
+            gradient.addColorStop(1, '#00000000');
+            chart.ctx.strokeStyle = gradient;
+            chart.ctx.lineWidth = 5;
+            chart.ctx.moveTo(x, y);
+            chart.ctx.lineTo(x, y + 70);
+            chart.ctx.stroke();
+            chart.ctx.closePath();
+
+            // Gradient 
+            chart.ctx.beginPath();
+            gradient = chart.ctx.createRadialGradient(x, y, 10, x, y, 30);
+            gradient.addColorStop(0, colors[didx+1]);
+            gradient.addColorStop(1, '#00000000');
+            chart.ctx.arc(x, y, 40, 0, 2 * Math.PI);
+            chart.ctx.fillStyle = gradient;
+            chart.ctx.fill();
+            chart.ctx.closePath();
+
+            // Draw stock icons
+            const image = images[didx + 1]
+            chart.ctx.drawImage(image, x - image.width / 2, y - image.height / 2, image.width, image.height);
+            
+            // Draw slash through icons
+            chart.ctx.beginPath();
+            chart.ctx.strokeStyle = 'red';
+            chart.ctx.lineWidth = 8;
+            chart.ctx.moveTo(x - 10, y - 10);
+            chart.ctx.lineTo(x + 10, y + 10);
+            chart.ctx.stroke();
+            chart.ctx.closePath();
+          }
+        })
+      })
+    }
+  } 
 
   render() {
 

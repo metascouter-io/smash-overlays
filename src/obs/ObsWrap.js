@@ -1,38 +1,16 @@
 import React, { Component } from 'react';
-import { defaultConfig } from '../shared/services/defaultConfig';
-import theme from '../shared/services/theme';
-import ActiveResources from '../shared/services/api/smash';
+import SharedWrapMixin from '../shared/SharedWrapMixin';
 
-class ObsWrap extends Component {
-  activeResources = new ActiveResources('ssbm');
+class ObsWrap extends SharedWrapMixin {
 
   constructor(props) {
     super(props);
 
     this.obs = null;
-    const config = { ...defaultConfig(), ...this.fetchUrlParams() }
 
-    this.activeResources = new ActiveResources(config.game);
-
-    /*
-    if(process.env.NODE_ENV === "development") {
-      this.state.config = {
-        player_1_name: 'Daigo Umehara',
-        player_2_name: 'Go1',
-        visible: false,
-        active: false,
-        activeScene: false
-      }
-    }
-    else*/
-    {
-      this.state = {
-        config,
-        theme,
-        matchStats: undefined,
-        setStats: undefined,
-        fetchingSet: false
-      }
+    this.state.config = {
+      ...this.state.config,
+      ...this.fetchUrlParams(),
     }
   }
 
@@ -47,10 +25,9 @@ class ObsWrap extends Component {
   }
 
   componentDidMount() {
-    // this.setupSceneChange();
     this.setupActiveChange();
     this.setupVisibilityChange();
-    this.setIntervalForFetchingPlayers();
+    this.setIntervalForFetchingActiveResources();
     this.fetchActiveResources();
   }
 
@@ -82,73 +59,6 @@ class ObsWrap extends Component {
 
       this.setState({ config: config });
     };
-  }
-
-  fetchActiveResources = () => {
-    this.activeResources.game({ user: this.state.config.user })
-      .then((results) => results.data)
-      .then((results) => {
-        let game = null;
-        if (results.game) {
-          game = results.game;
-        } else {
-          game = 'ssbm';
-        }
-        if (this.activeResources.gameName !== game) {
-          this.activeResources.gameName = game;
-        }
-        // Dont fetch set if already fetching
-        if (!this.state.fetchingSet) {
-          this.setState({
-            fetchingSet: true
-          })
-          this.activeResources.set({ user: this.state.config.user })
-            .then((results) => results.data)
-            .then((results) => {
-              this.setState({
-                setStats: results,
-                fetchingSet: false,
-                config: {
-                  ...this.state.config,
-                  game
-                }
-              });
-            }
-          );
-        }
-        // Dont fetch set if already fetching
-        if (!this.state.fetchingMatch) {
-          this.setState({
-            fetchingMatch: true
-          })
-          this.activeResources.match({ user: this.state.config.user })
-            .then((results) => results.data)
-            .then((results) => {
-              this.setState({
-                matchStats: results,
-                fetchingMatch: false,
-                config: {
-                  ...this.state.config,
-                  game
-                }
-              });
-            }
-          );
-        }
-      });
-  }
-
-  setIntervalForFetchingPlayers() {
-    if(this.fetchPlayersInterval === undefined) {
-      this.fetchPlayersInterval = setInterval(this.fetchActiveResources, 5000)
-    }
-  }
-
-  clearIntervalForFetchingPlayers() {
-    if(this.fetchPlayersInterval !== undefined) {
-      clearInterval(this.fetchPlayersInterval);
-      this.fetchPlayersInterval = undefined
-    }
   }
 
   render() {
