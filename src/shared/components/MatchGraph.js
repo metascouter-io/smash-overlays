@@ -217,7 +217,7 @@ class MatchGraph extends Component {
             chart.ctx.beginPath();
             let gradient = chart.ctx.createLinearGradient(x, y, x, y + 50);
             gradient.addColorStop(0, colors[didx+1]);
-            gradient.addColorStop(1, '#00000000');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
             chart.ctx.strokeStyle = gradient;
             chart.ctx.lineWidth = 5;
             chart.ctx.moveTo(x, y);
@@ -229,7 +229,7 @@ class MatchGraph extends Component {
             chart.ctx.beginPath();
             gradient = chart.ctx.createRadialGradient(x, y, 10, x, y, 30);
             gradient.addColorStop(0, colors[didx+1]);
-            gradient.addColorStop(1, '#00000000');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
             chart.ctx.arc(x, y, 40, 0, 2 * Math.PI);
             chart.ctx.fillStyle = gradient;
             chart.ctx.fill();
