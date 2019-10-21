@@ -1,9 +1,9 @@
 {
   "brightColor": "#fff",
   "brightText": "#000",
-  "colorColor": "#EDD367",
-  "colorText": "#FFFFFF",
-  "dimColor": "#B353F7",
+  "colorColor": "#fff",
+  "colorText": "#fff",
+  "dimColor": "#000",
   "dimText": "#FFFFFF",
   "darkColor": "#030911",
   "darkText": "#FFFFFF"

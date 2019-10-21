@@ -42,4 +42,14 @@ export default class ActiveResources extends BaseApiCaller {
             }
         })
     }
+
+    settings({ user }) {
+        return this.callRoute({
+            method: 'GET',
+            path: `${this.gameName}/active/${user}/settings/`,
+            params: {
+                user: user
+            }
+        })
+    }
 }

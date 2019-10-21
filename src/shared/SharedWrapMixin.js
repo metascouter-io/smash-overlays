@@ -31,20 +31,23 @@ class SharedWrapMixin extends Component {
   }
   
   fetchActiveResources = () => {
-    this.activeResources.game({ user: this.state.config.user })
+    const params = this.fetchUrlParams();
+    const user = params.user ? params.user : this.state.config.user;
+    this.activeResources.settings({ user })
       .then((results) => results.data)
       .then((results) => {
-        let game = null;
-        if (results.game) {
-          game = results.game;
-        } else {
-          game = 'ssbm';
-        }
+        const game = results.game ? results.game : 'ssbm';
+        const theme = results.theme ? 
+          {
+            ...this.state.theme,
+            ...results.theme
+          } : this.state.theme;
         if (this.activeResources.gameName !== game) {
           this.activeResources.gameName = game;
         }
 
         this.setState({
+          theme,
           config: {
             ...this.state.config,
             game
@@ -120,6 +123,16 @@ class SharedWrapMixin extends Component {
       clearInterval(this.fetchActiveResourcesInterval);
       this.fetchActiveResourcesInterval = undefined
     }
+  }
+
+  fetchUrlParams() {
+    const urlParams = new URLSearchParams(document.location.search);
+
+    let passedInParams = {};
+    for(const pair of urlParams.entries()) {
+      passedInParams[pair[0]] = pair[1];
+    }
+    return passedInParams;
   }
 }
 
