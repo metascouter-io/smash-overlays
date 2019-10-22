@@ -117,7 +117,7 @@ class MatchGraph extends Component {
     this.updateSeries(newProps.eventData);
 
     if (this.state.game != newProps.game ||
-        this.state.playerCharacters[0] != newProps.playerCharacters[0] ||
+        this.state.playerCharacters[2] != newProps.playerCharacters[2] ||
         this.state.playerCharacters[1] != newProps.playerCharacters[1]) {
       this.setState({
         game: newProps.game,

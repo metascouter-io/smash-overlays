@@ -7,9 +7,9 @@ class ObsWrap extends SharedWrapMixin {
     super(props);
 
     this.obs = null;
-
     this.state.config = {
       ...this.state.config,
+      active: true,
       ...this.fetchUrlParams(),
     }
   }
@@ -31,21 +31,11 @@ class ObsWrap extends SharedWrapMixin {
     this.fetchActiveResources();
   }
 
-  setupSceneChange = () => {
-    window.addEventListener('obsSceneChanged', (evt) => {
-      console.error('scene change')
-      let config = this.state.config;
-      config.activeScene = evt.detail;
-
-      this.setState({ config: config });
-    });
-  }
-
   setupVisibilityChange = () => {
     window.obsstudio.onVisibilityChange = (visiblity) => {
       console.error('visibility change')
       let config = this.state.config;
-      config.visible = visiblity;
+      config.visible = !visiblity;
 
       this.setState({ config: config });
     };
@@ -55,9 +45,16 @@ class ObsWrap extends SharedWrapMixin {
     window.obsstudio.onActiveChange = (active) => {
       console.error('active change')
       let config = this.state.config;
-      config.active = active;
 
-      this.setState({ config: config });
+      if (active) {
+        config.active = false;
+        this.setState({ config: config });
+
+        setTimeout(() => {
+          config.active = active;
+          this.setState({ config: config });
+        }, 100)
+      }
     };
   }
 

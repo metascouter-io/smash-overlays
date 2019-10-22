@@ -14,15 +14,6 @@ class DefaultWrap extends SharedWrapMixin {
     }
   }
 
-  fetchUrlParams() {
-    const urlParams = new URLSearchParams(document.location.search);
-
-    let passedInParams = {};
-    for(const pair of urlParams.entries()) {
-      passedInParams[pair[0]] = pair[1];
-    }
-    return passedInParams;
-  }
 
   componentDidMount() {
     setTimeout(() => { 
