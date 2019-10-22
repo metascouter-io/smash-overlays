@@ -106,6 +106,7 @@ const ssbu_characters = {
 }
 
 const ssbu_icons = {
+  banjo_and_kazooie: '/images/smash/stockicons/banjo_and_kazooie/icon.png',
   bayonetta: '/images/smash/stockicons/bayonetta/icon.png',
   bayonetta_alt: '/images/smash/stockicons/bayonetta/alt.png',
   bowser: '/images/smash/stockicons/bowser/icon.png',
