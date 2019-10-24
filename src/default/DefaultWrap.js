@@ -11,7 +11,7 @@ class DefaultWrap extends SharedWrapMixin {
       ...this.state.config,
       ...this.fetchUrlParams(),
       active: false
-    }
+    };
   }
 
 
@@ -27,12 +27,14 @@ class DefaultWrap extends SharedWrapMixin {
     this.fetchActiveResources();
   }
 
-  render() {
+  render(props) {
     const { config, matchStats, setStats, theme } = this.state;
 
     return (
       <div className="App" style={{ width: '1920px', height: '1080px', overflow: 'hidden' }}>
-        { matchStats && setStats && config && theme &&
+        { !(this.props.shouldFetchMatch && !matchStats)
+          && !(this.props.shouldFetchSet && !setStats)
+          && config && theme &&
           React.cloneElement(
             this.props.children,
             { config, matchStats, setStats, theme }
