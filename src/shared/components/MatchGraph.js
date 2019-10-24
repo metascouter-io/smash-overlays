@@ -171,24 +171,31 @@ class MatchGraph extends Component {
             return false;
           })()
         }))
-      }
-    })
+      };
+    });
 
     // Latest time
-    const latestTime = Math.max(
+    let latestTime = Math.max(
       datasets[0].data[datasets[0].data.length - 1].x,
       datasets[1].data[datasets[1].data.length - 1].x,
-      eventData[0].stock_data[eventData[0].stock_data.length - 1][0],
-      eventData[1].stock_data[eventData[1].stock_data.length - 1][0]
-    ) + 0.05; // add so ending stock annotation doesnt get hidden
+    );
+    const player1StockData = eventData[0].stock_data;
+    if (player1StockData.length > 0) {
+      latestTime = Math.max(latestTime, player1StockData[player1StockData.length - 1][0]);
+    }
+    const player2StockData = eventData[0].stock_data;
+    if (player2StockData.length > 0) {
+      latestTime = Math.max(latestTime, player2StockData[player2StockData.length - 1][0]);
+    }
+    latestTime += 0.05; // add so ending stock annotation doesnt get hidden
     datasets[1].data.push({
       x: latestTime,
       y: datasets[1].data[datasets[1].data.length - 1].y
-    })
+    });
     datasets[0].data.push({
       x: latestTime,
       y: datasets[0].data[datasets[0].data.length - 1].y
-    })
+    });
 
     return { datasets };
   }
