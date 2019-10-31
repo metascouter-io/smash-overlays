@@ -62,7 +62,9 @@ class XsplitWrapper extends SharedWrapMixin {
 
     return (
       <div className="App" style={{ width: '1920px', height: '1080px', overflow: 'hidden' }}>
-        { matchStats && setStats && config && theme && configLoaded &&
+        { !(this.props.shouldFetchMatch && !matchStats)
+             && !(this.props.shouldFetchSet && !setStats)
+             && config && theme &&
           React.cloneElement(
             this.props.children,
             { config, matchStats, setStats, theme }

@@ -18,13 +18,13 @@ import XsplitWrap from './xsplit/XsplitWrap';
 import ObsWrap from './obs/ObsWrap';
 
 // Wrap files here with the appropiate wrapper
-const DefaultMatchup  = () => <DefaultWrap><Matchup /></DefaultWrap>;
-const DefaultAnalysis = () => <DefaultWrap><Analysis /></DefaultWrap>;
-const XsplitMatchup   = () => <XsplitWrap><Matchup /></XsplitWrap>;
-const XsplitAnalysis  = () => <XsplitWrap><Analysis /></XsplitWrap>;
+const DefaultMatchup  = () => <DefaultWrap shouldFetchSet={true}><Matchup /></DefaultWrap>;
+const DefaultAnalysis = () => <DefaultWrap shouldFetchMatch={true}><Analysis /></DefaultWrap>;
+const XsplitMatchup   = () => <XsplitWrap shouldFetchSet={true}><Matchup /></XsplitWrap>;
+const XsplitAnalysis  = () => <XsplitWrap shouldFetchMatch={true}><Analysis /></XsplitWrap>;
 const XsplitConfig    = () => <XsplitWrap><Config /></XsplitWrap>;
-const ObsMatchup      = () => <ObsWrap><Matchup /></ObsWrap>;
-const ObsAnalysis     = () => <ObsWrap><Analysis /></ObsWrap>;
+const ObsMatchup      = () => <ObsWrap shouldFetchSet={true}><Matchup /></ObsWrap>;
+const ObsAnalysis     = () => <ObsWrap shouldFetchMatch={true}><Analysis /></ObsWrap>;
 
 class App extends Component {
   render() {
@@ -38,7 +38,7 @@ class App extends Component {
         <Route path="/obs/matchup" component={ObsMatchup} />
         <Route path="/obs/analysis" component={ObsAnalysis} />
       </Router>
-    )
+    );
   }
 }
 

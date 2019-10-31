@@ -17,8 +17,8 @@ class SharedWrapMixin extends Component {
     const config = { 
       ...defaultConfig(),
       active: false
-    }
-
+    };
+    console.log(props);
     this.activeResources = new ActiveResources(config.game);
     this.state = {
       config,
@@ -27,7 +27,7 @@ class SharedWrapMixin extends Component {
       setStats: undefined,
       fetchingSet: false,
       fetchingMatch: false
-    }
+    };
   }
   
   fetchActiveResources = () => {
@@ -52,19 +52,19 @@ class SharedWrapMixin extends Component {
             ...this.state.config,
             game
           }
-        })
+        });
         // Dont fetch set if already fetching
-        if (!this.state.fetchingSet) {
+        if (!this.state.fetchingSet && this.props.shouldFetchSet) {
           this.setState({
             fetchingSet: true
-          })
+          });
           this.activeResources.set({ user: this.state.config.user })
             .then((results) => results.data)
             .then((results) => {
               this.setState({
                 setStats: results,
                 setActive: results.active,
-                fetchingSet: false,
+                fetchingSet: false
               });
             })
             .catch((e) => {
@@ -73,23 +73,23 @@ class SharedWrapMixin extends Component {
                                      e.response.status == 400)) {
                 this.setState({
                   fetchingSet: false,
-                  setActive: false,
-                })
+                  setActive: false
+                });
               }
-            })
+            });
         }
-        // Dont fetch set if already fetching
-        if (!this.state.fetchingMatch) {
+        // Dont fetch match if already fetching
+        if (!this.state.fetchingMatch && this.props.shouldFetchMatch) {
           this.setState({
             fetchingMatch: true
-          })
+          });
           this.activeResources.match({ user: this.state.config.user })
             .then((results) => results.data)
             .then((results) => {
               this.setState({
                 matchStats: results,
                 matchActive: results.active,
-                fetchingMatch: false,
+                fetchingMatch: false
               });
             })
             .catch((e) => {
@@ -98,8 +98,8 @@ class SharedWrapMixin extends Component {
                                      e.response.status == 400)) {
                 this.setState({
                   fetchingMatch: false,
-                  matchActive: false,
-                })
+                  matchActive: false
+                });
               }
             });
         }
@@ -111,7 +111,7 @@ class SharedWrapMixin extends Component {
    */ 
   setIntervalForFetchingActiveResources() {
     if(this.fetchActiveResourcesInterval === undefined) {
-      this.fetchActiveResourcesInterval = setInterval(this.fetchActiveResources, 5000)
+      this.fetchActiveResourcesInterval = setInterval(this.fetchActiveResources, 5000);
     }
   }
 
@@ -121,8 +121,12 @@ class SharedWrapMixin extends Component {
   clearIntervalForFetchingPlayers() {
     if(this.fetchActiveResourcesInterval !== undefined) {
       clearInterval(this.fetchActiveResourcesInterval);
-      this.fetchActiveResourcesInterval = undefined
+      this.fetchActiveResourcesInterval = undefined;
     }
+  }
+
+  componentWillUnmount() {
+    this.clearIntervalForFetchingPlayers();
   }
 
   fetchUrlParams() {

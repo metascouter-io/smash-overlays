@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build-deploy:
+    docker:
+      - image: circleci/python:3.7-node-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install aws-cli
+          command: sudo pip3 install awscli
+      - run:
+          name: Install node dependencies
+          command: yarn install
+      - save_cache:
+          key: deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - "node_modules"
+      - run: 
+          name: Deploy CFT
+          command: aws cloudformation deploy --template .circleci/cloudformation.yml --stack-name smash-overlays --region us-west-1 --no-fail-on-empty-changeset
+          no_output_timeout: 60m
+      - run:
+          name: Build source
+          command: yarn build
+      - run: 
+          name: Upload source to S3 buckets
+          command: aws s3 sync ./build s3://smash-overlays.metascouter.gg
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-deploy:
+          filters:
+            branches:
+              only: master

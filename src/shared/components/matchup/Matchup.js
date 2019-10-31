@@ -17,11 +17,19 @@ class Matchup extends Component {
     const playerStats = stats.stats.reduce((acc, s) => {
       acc[s.player_num] = s;
       return acc;
-    }, {})
+    }, {});
 
     if (!stats.active) {
       return null;
     }
+
+    const processPercent = (perc) => {
+      if (perc == 'N/A') {
+        return perc;
+      } else {
+        return Math.round(perc, 3) + '%';
+      }
+    };
 
     return (
         <div className={className}>
@@ -72,8 +80,8 @@ class Matchup extends Component {
                   config={config}
                   data={{
                     centerText: 'Lowest kill %',
-                    leftText: playerStats[2].lowest_death_percent + '%',
-                    rightText: playerStats[1].lowest_death_percent + '%'
+                    leftText: processPercent(playerStats[2].lowest_death_percent),
+                    rightText: processPercent(playerStats[1].lowest_death_percent)
                   }} 
                   style={{
                     background: this.props.theme.dimColor,
@@ -89,8 +97,8 @@ class Matchup extends Component {
                   theme={theme}
                   data={{
                     centerText: 'Avg. Death %',
-                    leftText: Math.round(playerStats[1].avg_death_percent, 3) + '%',
-                    rightText: Math.round(playerStats[2].avg_death_percent, 3) + '%'
+                    leftText: processPercent(playerStats[1].avg_death_percent),
+                    rightText: processPercent(playerStats[2].avg_death_percent)
                   }} 
                   style={{
                     background: this.props.theme.darkColor,

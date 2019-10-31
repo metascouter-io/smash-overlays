@@ -10,8 +10,8 @@ class ObsWrap extends SharedWrapMixin {
     this.state.config = {
       ...this.state.config,
       active: true,
-      ...this.fetchUrlParams(),
-    }
+      ...this.fetchUrlParams()
+    };
   }
 
   fetchUrlParams() {
@@ -25,6 +25,7 @@ class ObsWrap extends SharedWrapMixin {
   }
 
   componentDidMount() {
+    console.log('MOUNT')
     this.setupActiveChange();
     this.setupVisibilityChange();
     this.setIntervalForFetchingActiveResources();
@@ -43,7 +44,7 @@ class ObsWrap extends SharedWrapMixin {
 
   setupActiveChange = () => {
     window.obsstudio.onActiveChange = (active) => {
-      console.error('active change')
+      console.error('active change');
       let config = this.state.config;
 
       if (active) {
@@ -53,17 +54,18 @@ class ObsWrap extends SharedWrapMixin {
         setTimeout(() => {
           config.active = active;
           this.setState({ config: config });
-        }, 100)
+        }, 100);
       }
     };
   }
 
   render() {
     const { config, matchStats, setStats, theme } = this.state;
-
     return (
       <div className="App" style={{ width: '1920px', height: '1080px', overflow: 'hidden' }}>
-        { matchStats && setStats && config && theme &&
+        {    !(this.props.shouldFetchMatch && !matchStats)
+             && !(this.props.shouldFetchSet && !setStats)
+             && config && theme &&
           React.cloneElement(
             this.props.children,
             { config, matchStats, setStats, theme }
