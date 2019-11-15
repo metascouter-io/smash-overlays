@@ -33,7 +33,7 @@ class Matchup extends Component {
 
     return (
         <div className={className}>
-        { stats && stats.state != 'NR' &&
+        { stats && stats.state == 'CP' &&
           <React.Fragment>
             <div className={`fade-in ${config.active && 'visible'}`}>
               <div className="statsView">
