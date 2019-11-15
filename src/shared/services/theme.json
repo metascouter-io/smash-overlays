@@ -1,10 +1,11 @@
 {
-  "brightColor": "#fff",
-  "brightText": "#000",
-  "colorColor": "#fff",
-  "colorText": "#fff",
-  "dimColor": "#000",
-  "dimText": "#FFFFFF",
-  "darkColor": "#030911",
-  "darkText": "#FFFFFF"
+    "dimText": "#ffffff",
+    "darkText": "#FFFFFF",
+    "dimColor": "#03000C",
+    "colorText": "#FFFFFF",
+    "darkColor": "#03000C",
+    "brightText": "#fff",
+    "colorColor": "#6300CA",
+    "brightColor": "#9C00FF",
+    "backgroundColor": "#000000"
 }
