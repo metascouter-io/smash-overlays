@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { icons } from '../services/images';
 
-const toTS = (sec_num) => {
-    var hours   = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = Math.floor(sec_num - (hours * 3600) - (minutes * 60));
-
-    if (minutes < 10) {minutes = minutes;}
-    if (seconds < 10) {seconds = "0"+seconds;}
-    return minutes+':'+seconds;
-}
-
 const generateStockAnnotation = (game, character) => {
   let image = new Image(25, 25);
   const url = icons[game][character];
@@ -116,9 +106,9 @@ class MatchGraph extends Component {
   componentWillReceiveProps(newProps) {
     this.updateSeries(newProps.eventData);
 
-    if (this.state.game != newProps.game ||
-        this.state.playerCharacters[2] != newProps.playerCharacters[2] ||
-        this.state.playerCharacters[1] != newProps.playerCharacters[1]) {
+    if (this.state.game !== newProps.game ||
+        this.state.playerCharacters[2] !== newProps.playerCharacters[2] ||
+        this.state.playerCharacters[1] !== newProps.playerCharacters[1]) {
       this.setState({
         game: newProps.game,
         playerCharacters: newProps.playerCharacters
@@ -145,7 +135,7 @@ class MatchGraph extends Component {
       let deathDataPoints = ed.health_at_death_data;
 
       let lineColor = null;
-      if (getPlayer(idx) == 1) {
+      if (getPlayer(idx) === 1) {
         lineColor = '#fd5f5f';
       } else {
         lineColor = '#3232ff';
@@ -164,7 +154,7 @@ class MatchGraph extends Component {
           x: d[0],
           y: d[1],
           died: (() => {
-            if (deathDataPoints && deathDataPoints.length && deathDataPoints[0][0] == d[0]) {
+            if (deathDataPoints && deathDataPoints.length && deathDataPoints[0][0] === d[0]) {
               deathDataPoints = deathDataPoints.slice(1);
               return true;
             }
@@ -256,8 +246,11 @@ class MatchGraph extends Component {
             chart.ctx.stroke();
             chart.ctx.closePath();
           }
+          return true;
         })
+        return true;
       })
+      return true;
     }
   } 
 

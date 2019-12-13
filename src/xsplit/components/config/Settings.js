@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 import './Settings.scss';
-import { Input } from '../../../shared/components/Input';
-import { Checkbox } from '../../../shared/components/Checkbox';
+//import { Input } from '../../../shared/components/Input';
+//import { Checkbox } from '../../../shared/components/Checkbox';
 
 class Settings extends Component {
   render() {
-    const { config, saveConfig, handleInputChange } = this.props;
+    //const { config, saveConfig, handleInputChange } = this.props;
 
     return (
       <div className="settings">

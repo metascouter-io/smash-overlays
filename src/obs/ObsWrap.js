@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SharedWrapMixin from '../shared/SharedWrapMixin';
 
 class ObsWrap extends SharedWrapMixin {

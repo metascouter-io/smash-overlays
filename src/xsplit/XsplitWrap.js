@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ready, SourcePluginWindow, Source } from 'xjs-framework/dist/xjs-es2015';
 import SharedWrapMixin from '../shared/SharedWrapMixin';
 
@@ -58,7 +58,7 @@ class XsplitWrapper extends SharedWrapMixin {
   }  
 
   render() {
-    const { config, configLoaded, matchStats, setStats, theme } = this.state;
+    const { config, matchStats, setStats, theme } = this.state;
 
     return (
       <div className="App" style={{ width: '1920px', height: '1080px', overflow: 'hidden' }}>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import PlayerPortrait from '../PlayerPortrait';
 import MetascouterLogo from '../MetascouterLogo';
 import MatchGraph from '../MatchGraph';
 
@@ -13,11 +12,6 @@ class Analysis extends Component {
     const { matchStats, config } = this.props;
     const stats = matchStats;
     let { className } = this.props;
-
-    const playerStats = Object.values(stats.players).reduce((acc, s) => {
-      acc[s.player] = s;
-      return acc;
-    }, {})
 
     const playerCharacters = Object.values(stats.players).reduce((acc, s) => {
       acc[s.player] = s.character.internal_name;

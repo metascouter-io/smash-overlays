@@ -24,7 +24,7 @@ class Matchup extends Component {
     }
 
     const processPercent = (perc) => {
-      if (perc == 'N/A') {
+      if (perc === 'N/A') {
         return perc;
       } else {
         return Math.round(perc, 3) + '%';
@@ -33,7 +33,7 @@ class Matchup extends Component {
 
     return (
         <div className={className}>
-        { stats && stats.state == 'CP' &&
+        { stats && stats.state === 'CP' &&
           <React.Fragment>
             <div className={`fade-in ${config.active && 'visible'}`}>
               <div className="statsView">

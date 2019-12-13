@@ -4,7 +4,7 @@ import styled from 'styled-components';
 class HeadToHead extends Component {
   render()
   {
-    const { className, data, style, theme, delay, config } = this.props;
+    const { className, data, style, config } = this.props;
 
     return (
       <div className={className}>

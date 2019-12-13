@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import { defaultConfig } from './services/defaultConfig';
 import theme from './services/theme';
@@ -69,8 +69,8 @@ class SharedWrapMixin extends Component {
             })
             .catch((e) => {
               // The active resource is not set yet
-              if (e.isAxiosError && (e.response.status == 404 ||
-                                     e.response.status == 400)) {
+              if (e.isAxiosError && (e.response.status === 404 ||
+                                     e.response.status === 400)) {
                 this.setState({
                   fetchingSet: false,
                   setActive: false
@@ -94,8 +94,8 @@ class SharedWrapMixin extends Component {
             })
             .catch((e) => {
               // The active resource is not set yet
-              if (e.isAxiosError && (e.response.status == 404 ||
-                                     e.response.status == 400)) {
+              if (e.isAxiosError && (e.response.status === 404 ||
+                                     e.response.status === 400)) {
                 this.setState({
                   fetchingMatch: false,
                   matchActive: false
