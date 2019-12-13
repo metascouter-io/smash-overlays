@@ -19,7 +19,7 @@ jobs:
             - "node_modules"
       - run: 
           name: Deploy CFT
-          command: aws cloudformation deploy --template .circleci/cloudformation.yml --stack-name smash-overlays --region us-west-1 --no-fail-on-empty-changeset
+          command: aws cloudformation deploy --template .circleci/cloudformation.yml --stack-name smash-overlays --region us-east-1 --no-fail-on-empty-changeset
           no_output_timeout: 60m
       - run:
           name: Build source
