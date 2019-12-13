@@ -63,8 +63,8 @@ class Matchup extends Component {
                   config={config}
                   data={{
                     centerText: 'Damage dealt',
-                    leftText: playerStats[2].total_damage_dealt,
-                    rightText: playerStats[1].total_damage_dealt
+                    leftText: playerStats[1].total_damage_dealt,
+                    rightText: playerStats[2].total_damage_dealt
                   }} 
                   style={{
                     background: this.props.theme.darkColor,
@@ -80,8 +80,8 @@ class Matchup extends Component {
                   config={config}
                   data={{
                     centerText: 'Lowest kill %',
-                    leftText: processPercent(playerStats[2].lowest_death_percent),
-                    rightText: processPercent(playerStats[1].lowest_death_percent)
+                    leftText: processPercent(playerStats[1].lowest_death_percent),
+                    rightText: processPercent(playerStats[2].lowest_death_percent)
                   }} 
                   style={{
                     background: this.props.theme.dimColor,
