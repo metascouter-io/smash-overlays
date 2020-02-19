@@ -111,7 +111,6 @@ module.exports = function(webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
       main: [isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'), paths.appIndexJs].filter(Boolean),
-      xsplit_config: [isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'), paths.xsplitConfigJs].filter(Boolean),
       vendors: ['react', 'react-dom']
     },
     output: {
@@ -161,23 +160,6 @@ module.exports = function(webpackEnv) {
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },
 
-        // First, run the linter.
-        // It's important to do this before Babel processes the JS.
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          enforce: 'pre',
-          use: [
-            {
-              options: {
-                formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                eslintPath: require.resolve('eslint'),
-                
-              },
-              loader: require.resolve('eslint-loader'),
-            },
-          ],
-          include: paths.appSrc,
-        },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -354,20 +336,10 @@ module.exports = function(webpackEnv) {
                   minifyCSS: true,
                   minifyURLs: true,
                 },
-                configLocation: 'https://sfv-broadcast.metascouter.gg/xsplit/config.html'
               }
-            : {
-              configLocation: 'http://localhost:3000/xsplit/config.html'
-            }
+          : {}
         ),
       ),
-      // XSplit files
-      new HtmlWebpackPlugin({
-        inject: true,
-        filename: paths.xsplitConfigHtmlBuild,
-        template: paths.xsplitConfigHtml,
-        chunks: ['xsplit_config', 'vendor']
-      }),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
