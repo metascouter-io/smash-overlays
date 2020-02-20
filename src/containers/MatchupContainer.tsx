@@ -1,8 +1,17 @@
 import React from 'react';
 
-const MatchupContainer = (props) => {
+import { useParams } from 'react-router-dom';
+
+import SetStatsContainer from './SetStatsContainer';
+import Matchup from '../components/Matchup';
+
+const MatchupContainer = () => {
+  const params = useParams();
+
   return (
-    null
+    <SetStatsContainer username={params.username}>
+      <Matchup />
+    </SetStatsContainer>
   )
 }
 

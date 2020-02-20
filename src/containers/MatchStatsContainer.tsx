@@ -9,7 +9,10 @@ import { useSelector } from 'react-redux';
 import { fetchSettings, fetchMatchStats } from '../store/actions';
 import { selectSettings, selectMatchStats } from '../store/selectors';
 
-const SetStatsContainer = () => {
+interface MatchStatsContainer {
+  username: string;
+}
+const MatchStatsContainer = ({ username }) => {
   const dispatcher = useDispatcher();
   const loading = useSelector<RootState>(state => {
     return state.settings.loading;
@@ -17,7 +20,6 @@ const SetStatsContainer = () => {
   const settings = useSelector<RootState, Settings>(selectSettings);
   const matchStats = useSelector<RootState, MatchStats>(selectMatchStats);
 
-  const username = 'jack'
   useEffect(() => {
     dispatcher(fetchSettings(username));
   }, [])
@@ -35,4 +37,4 @@ const SetStatsContainer = () => {
   )
 }
 
-export default SetStatsContainer;
+export default MatchStatsContainer;

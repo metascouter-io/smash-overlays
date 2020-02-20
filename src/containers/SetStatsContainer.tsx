@@ -5,11 +5,15 @@ import { RootState } from '../store/types';
 import { Settings, SetStats } from '../types';
 
 import { useSelector } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 
 import { fetchSettings, fetchSetStats } from '../store/actions';
 import { selectSettings, selectSetStats } from '../store/selectors';
 
-const SetStatsContainer = (props) => {
+interface SetStatsContainer extends React.Attributes {
+  username: string;
+}
+const SetStatsContainer = (props: SetStatsContainer) => {
   const dispatcher = useDispatcher();
   const loading = useSelector<RootState>(state => {
     return state.settings.loading;
@@ -17,7 +21,7 @@ const SetStatsContainer = (props) => {
   const settings = useSelector<RootState, Settings>(selectSettings);
   const setStats = useSelector<RootState, SetStats>(selectSetStats);
 
-  const username = 'jack'
+  const username = props.username;
   useEffect(() => {
     dispatcher(fetchSettings(username));
   }, [])
@@ -29,9 +33,15 @@ const SetStatsContainer = (props) => {
   }, [settings])
 
   if (setStats) {
-    return React.cloneElement(
-      props.children,
-      { setStats, settings }
+    return (
+      <ThemeProvider theme={settings.theme}>
+        {
+          React.cloneElement(
+            props.children,
+            { setStats, settings }
+          )
+        }
+      </ThemeProvider>
     )
   } else {
     // Still loading stats
