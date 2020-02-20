@@ -113,6 +113,7 @@ export interface MatchStats {
   id: string;
   unrecoverable: boolean;
   winner: PlayerId;
+  index_in_set: number;
   stage: {
     id: number;
     name: string;

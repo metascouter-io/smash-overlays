@@ -3,6 +3,7 @@ import React from 'react';
 import { MatchStatsComponentProps } from '../types';
 
 import NameScorePanel from './NameScorePanel';
+import HealthGraph from './HealthGraph';
 
 const MatchGraph = (props: MatchStatsComponentProps) => {
   const players = {
@@ -17,6 +18,8 @@ const MatchGraph = (props: MatchStatsComponentProps) => {
                         prefix={players[1].prefix}
                         playerTag={players[1].player_tag}
                         wins={props.matchStats.set.wins[players[1].id]}/>
+        <HealthGraph matchStats={props.matchStats}
+                     settings={props.settings}/>
         <NameScorePanel playerNumber={2}
                         prefix={players[2].prefix}
                         playerTag={players[2].player_tag}
