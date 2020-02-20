@@ -9,10 +9,7 @@ import store from './store';
  * Components need to consume a 'stats' and 'config' prop.
  */
 import Matchup from './containers/MatchupContainer';
-
-import SetStatsContainer from './containers/SetStatsContainer';
-import MatchStatsContainer from './containers/MatchStatsContainer';
-
+import MatchGraphContainer from './containers/MatchGraphContainer';
 
 class App extends Component {
   render() {
@@ -20,6 +17,8 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Route path="/matchup/:username" component={Matchup}/>
+          <Route path="/analysis/:username" component={MatchGraphContainer}/>
+          <Route path="/matchgraph/:username" component={MatchGraphContainer}/>
         </Router>
       </Provider>
     );

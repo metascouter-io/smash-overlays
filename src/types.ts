@@ -119,7 +119,7 @@ export interface MatchStats {
     internal_name: string;
     form?: 'NO' | 'BA' | 'FD';
   },
-  stock_stats: StockStats:
+  stock_stats: StockStats;
   stats: {
     stats_data: {
       took_first_stock: PlayerStatMap<boolean>;
@@ -148,6 +148,22 @@ export interface MatchStats {
         ];
       }
     ];
+  },
+  players: {
+    [playerId: string /* PlayerId */]: {
+      id: PlayerId;
+      player_tag: string;
+      player: 1 | 2;
+      prefix?: string;
+      picture_url?: string;
+      full_name?: string;
+    }
+  },
+  set: {
+    id: number;
+    active: boolean;
+    bracket_full: string;
+    wins: PlayerStatMap<number>;
   }
 }
 

@@ -3,16 +3,16 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import MatchStatsContainer from './MatchStatsContainer';
-import Matchup from '../components/Matchup';
+import MatchGraph from '../components/MatchGraph';
 
-const MatchupContainer = () => {
+const MatchGraphContainer = () => {
   const params = useParams();
 
   return (
     <MatchStatsContainer username={params.username}>
-      test
+      <MatchGraph />
     </MatchStatsContainer>
   )
 }
 
-export default MatchupContainer;
+export default MatchGraphContainer;
