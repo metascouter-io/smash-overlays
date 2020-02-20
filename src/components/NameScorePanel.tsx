@@ -25,7 +25,7 @@ const NameScorePanel = (props: NameScorePanelProps) => {
         <div className="playerTag h-16 px-3 text-3xl flex justify-center items-center text-center">
           { props.playerTag }
         </div>
-        <div className="score px-4 text-6xl">
+        <div className="score px-4 text-6xl number">
           { props.wins }
         </div>
       </div>

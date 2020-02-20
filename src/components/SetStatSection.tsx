@@ -22,9 +22,9 @@ const SetStatSection = (props: SetStatSectionProps) => {
           props.statRows.map((statRow, key) => (
             <>
               <div key={key} className="statRow h-12 p-3 text-2xl flex font-normal items-center justify-between">
-                <div className="w-1/4 flex justify-center">{ statRow.left }</div>
+                <div className="w-1/4 flex text-3xl justify-center number">{ statRow.left }</div>
                 <div className="w-2/4 flex justify-center uppercase">{ statRow.center }</div>
-                <div className="w-1/4 flex justify-center">{ statRow.right }</div>
+                <div className="w-1/4 flex text-3xl justify-center number">{ statRow.right }</div>
               </div>
               <div className="h-2 bg-red-700">
                 <div className="h-2 bg-blue-800" style={{width: `${100*statRow.barRatio}%` }}></div>

@@ -12,7 +12,7 @@ body {
   box-sizing: border-box;
 }
 
-code {
+code, .number {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
@@ -78,4 +78,10 @@ code {
   font-style: normal;
   font-weight: 900;
   src: url('./fonts/Montserrat-Bold.otf')
+}
+
+@font-face {
+  font-family: source-code-pro;
+  font-style: normal;
+  src: url('./fonts/SourceCodePro-Medium.ttf');
 }
