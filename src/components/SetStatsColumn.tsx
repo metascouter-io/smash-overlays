@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { SetStats } from '../types';
 
 import SetStatSection from './SetStatSection';
+import MetascouterLogo from './MetascouterLogo';
 
 interface SetStatsColumnProps {
   setStats: SetStats;
@@ -75,6 +76,7 @@ const SetStatsColumn = (props: SetStatsColumnProps) => {
                                       (playerStats[1].total_damage_dealt + playerStats[2].total_damage_dealt)
                         },
                       ]}/>
+      <MetascouterLogo/>
     </div>
   );
 }
