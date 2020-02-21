@@ -138,6 +138,7 @@ export interface MatchStats {
     event_data: [
       {
         name: string; // series name
+        port: number;
         health_at_death_data: [
           [number, number]
         ];
@@ -158,6 +159,11 @@ export interface MatchStats {
       prefix?: string;
       picture_url?: string;
       full_name?: string;
+      character: {
+        id: number;
+        name: string;
+        internal_name: string;
+      },
     }
   },
   set: {
