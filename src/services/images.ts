@@ -435,17 +435,17 @@ const ssbu_stages = {
   town_and_city: '/images/smash/ssbu_stages/stage_town_and_city.jpg',
 }
 
-const characters = {
+const characters: Record<string, Record<string, string>> = {
   ssbm: ssbm_characters,
   ssbu: ssbu_characters
 }
 
-const icons = {
+const icons: Record<string, Record<string, string>> = {
   ssbm: ssbm_icons,
   ssbu: ssbu_icons
 }
 
-const stages = {
+const stages: Record<string, Record<string, string>> = {
   ssbm: ssbm_stages,
   ssbu: ssbu_stages,
 }
