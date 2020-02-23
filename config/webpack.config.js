@@ -75,6 +75,7 @@ module.exports = function(webpackEnv) {
           // https://github.com/facebook/create-react-app/issues/2677
           ident: 'postcss',
           plugins: () => [
+            require('tailwindcss'),
             require('postcss-flexbugs-fixes'),
             require('postcss-preset-env')({
               autoprefixer: {
@@ -110,7 +111,11 @@ module.exports = function(webpackEnv) {
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
-      main: [isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'), paths.appIndexJs].filter(Boolean),
+      main: [
+        isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'),
+        isEnvDevelopment && require.resolve('react-hot-loader/patch'),
+        paths.appIndexJs
+      ].filter(Boolean),
       vendors: ['react', 'react-dom']
     },
     output: {
@@ -152,7 +157,11 @@ module.exports = function(webpackEnv) {
       // for React Native Web.
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts'))
+        .filter(ext => useTypeScript || !ext.includes('ts')),
+      // We swap out react-dom with the HMR shim in dev mode
+      alias: {
+        'react-dom': isEnvProduction ? 'react-dom' : '@hot-loader/react-dom'
+      }
     },
     module: {
       strictExportPresence: true,
@@ -200,6 +209,9 @@ module.exports = function(webpackEnv) {
                   ],
                   [
                     require.resolve('babel-plugin-styled-components')
+                  ],
+                  [
+                    require.resolve('react-hot-loader/babel')
                   ]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).

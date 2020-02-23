@@ -25,4 +25,8 @@ class App extends Component {
   }
 }
 
-export default App;
+// Safe to use in production
+// https://github.com/gaearon/react-hot-loader#what-about-production
+import { hot } from 'react-hot-loader/root'
+
+export default hot(App);
