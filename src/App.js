@@ -16,7 +16,9 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
+          <Route path="/matchup/" component={Matchup}/>
           <Route path="/matchup/:username" component={Matchup}/>
+          <Route path="/analysis/" component={MatchGraphContainer}/>
           <Route path="/analysis/:username" component={MatchGraphContainer}/>
           <Route path="/matchgraph/:username" component={MatchGraphContainer}/>
         </Router>
