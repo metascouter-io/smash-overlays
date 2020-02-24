@@ -10,6 +10,7 @@ import store from './store';
  */
 import Matchup from './containers/MatchupContainer';
 import MatchGraphContainer from './containers/MatchGraphContainer';
+import MatchStockListContainer from './containers/MatchStockListContainer';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
           <Route path="/matchup/:username" component={Matchup}/>
           <Route path="/analysis/:username" component={MatchGraphContainer}/>
           <Route path="/matchgraph/:username" component={MatchGraphContainer}/>
+          <Route path="/stocklist/:username" component={MatchStockListContainer}/>
         </Router>
       </Provider>
     );
