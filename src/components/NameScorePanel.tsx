@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactAnime from 'react-animejs';
+const { Anime } = ReactAnime;
 
 import { useParams } from 'react-router-dom';
 
@@ -11,24 +13,30 @@ interface NameScorePanelProps {
 }
 const NameScorePanel = (props: NameScorePanelProps) => {
 
+  const {
+    initial
+  } = useAnimation();
+
   return (
-    <div className={`${props.className} font-bold flex flex-col items-center`} >
-      { props.prefix ?
-        <div className={`sponsor h-16 m-2 px-8 flex text-2xl justify-center items-center ${props.playerNumber == 2 ? 'self-end' : 'self-start'}`}>
-          <div>
-            { props.prefix }
+    <Anime initial={initial}>
+      <div className={`${props.className} font-bold flex flex-col items-center`}>
+        { props.prefix ?
+          <div className={`sponsor h-16 m-2 px-8 flex text-2xl justify-center items-center ${props.playerNumber == 2 ? 'self-end' : 'self-start'}`}>
+            <div>
+              { props.prefix }
+            </div>
+          </div> : <div className="h-16 m-2"></div>
+        }
+        <div className="playerTagContainer mx-4 flex flex-col justify-center items-center">
+          <div className="playerTag h-16 px-3 text-3xl flex justify-center items-center text-center">
+            { props.playerTag }
           </div>
-        </div> : <div className="h-16 m-2"></div>
-      }
-      <div className="playerTagContainer mx-4 flex flex-col justify-center items-center">
-        <div className="playerTag h-16 px-3 text-3xl flex justify-center items-center text-center">
-          { props.playerTag }
-        </div>
-        <div className="score px-4 text-6xl number">
-          { props.wins }
+          <div className="score px-4 text-6xl number">
+            { props.wins }
+          </div>
         </div>
       </div>
-    </div>
+    </Anime>
   )
 }
 
@@ -42,6 +50,7 @@ const StyledNameScorePanel = styled(NameScorePanel)`
 
     z-index: 2;
     background-color: ${props => props.theme.primaryColor};
+    transform: translateY(-350px);
   }
   .playerTagContainer {
     z-index: 1;
@@ -52,13 +61,29 @@ const StyledNameScorePanel = styled(NameScorePanel)`
     .playerTag {
       width: 100%;
       background-color: ${props => props.theme.secondaryColor};
+
+      transform: translateY(-350px);
     }
     .score {
       z-index: 0;
       position: relative;
       background-color: ${props => props.theme.black};
+      transform: translateY(-350px);
     }
   }
 `;
+
+const useAnimation = () => {
+  return {
+    initial: [
+      {
+        targets: ['.score','.playerTag', '.sponsor'],
+        duration: 750,
+        translateY: ['-350px', '0'],
+        easing: 'easeInOutQuad'
+      }
+    ]   
+  }
+}
 
 export default StyledNameScorePanel;

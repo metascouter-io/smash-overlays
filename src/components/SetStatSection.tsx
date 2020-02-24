@@ -13,7 +13,7 @@ interface SetStatSectionProps {
 }
 const SetStatSection = (props: SetStatSectionProps) => {
   return (
-    <div className={`${props.className} flex flex-col mb-10`}>
+    <div className={`${props.className} flex flex-col mb-10 setStatSection`}>
       <div className="h-16 text-4xl font-bold flex justify-center uppercase items-center statHeader">
         { props.statHeader }
       </div>
@@ -26,8 +26,8 @@ const SetStatSection = (props: SetStatSectionProps) => {
                 <div className="w-2/4 flex justify-center uppercase">{ statRow.center }</div>
                 <div className="w-1/4 flex text-3xl justify-center number">{ statRow.right }</div>
               </div>
-              <div className="h-2 bg-red-700">
-                <div className="h-2 bg-blue-800" style={{width: `${100*statRow.barRatio}%` }}></div>
+              <div className="h-2 bg-red-700 statRatio">
+                <div className="h-full bg-blue-800" style={{width: `${100*statRow.barRatio}%` }}></div>
               </div>
             </div>
           ))

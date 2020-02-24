@@ -222,7 +222,7 @@ const stockIconPlugin = (game: string, playerCharacters: { [playerNumber: number
 
           // Draw background
           chart.ctx.fillStyle = colors[didx+1];
-          chart.ctx.fillRect(x - image.width / 2, y - 32 - image.height / 2, image.width, image.height + 32);
+          chart.ctx.fillRect(x - image.width / 2, y - image.height / 2, image.width, image.height);
 
           chart.ctx.drawImage(image, x - image.width / 2, y - image.height / 2, image.width, image.height);
 

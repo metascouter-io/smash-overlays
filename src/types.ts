@@ -13,12 +13,19 @@ export interface Settings {
 }
 
 
+export interface Character {
+  id: number;
+  name: string;
+  internal_name: string;
+}
+
 interface StockStats {
   [playerNumber: string]: {
     [stockNumber: string]: {
       duration: number;
       damage_dealt: number;
       stocks_taken: number;
+      death_percent: number;
     }
   }
 }
@@ -81,11 +88,7 @@ export interface SetStats {
       stock_stats: StockStats,
       players: {
         [playerId: string /* PlayerId */]: {
-          character: {
-            id: number;
-            name: string;
-            internal_name: string;
-          },
+          character: Character,
           id: PlayerId;
           player_tag: string;
           player: number;
@@ -159,11 +162,7 @@ export interface MatchStats {
       prefix?: string;
       picture_url?: string;
       full_name?: string;
-      character: {
-        id: number;
-        name: string;
-        internal_name: string;
-      },
+      character: Character,
     }
   },
   set: {
@@ -183,4 +182,11 @@ export interface SetStatsComponentProps {
 export interface MatchStatsComponentProps {
   matchStats: MatchStats;
   settings: Settings;
+}
+
+export interface RichStock {
+  stockNumber: number;
+  time: number;
+  playerNumber: number;
+  deathPercent: number;
 }
