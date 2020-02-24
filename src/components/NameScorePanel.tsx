@@ -14,7 +14,7 @@ const NameScorePanel = (props: NameScorePanelProps) => {
   return (
     <div className={`${props.className} font-bold flex flex-col items-center`} >
       { props.prefix ?
-        <div className={`sponsor h-16 m-2 px-3 flex text-2xl justify-center items-center ${props.playerNumber == 2 ? 'self-end' : 'self-start'}`}>
+        <div className={`sponsor h-16 m-2 px-8 flex text-2xl justify-center items-center ${props.playerNumber == 2 ? 'self-end' : 'self-start'}`}>
           <div>
             { props.prefix }
           </div>

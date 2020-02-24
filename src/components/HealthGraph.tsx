@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import MetascouterLogo from './MetascouterLogo';
 
 import { MatchStats, Settings } from '../types';
-import { stages } from '../services/images';
+import { stages, characters } from '../services/images';
 
 import { Line } from 'react-chartjs-2';
 
@@ -16,6 +16,10 @@ interface HealthGraphProps {
 }
 const HealthGraph = (props: HealthGraphProps) => {
   const stageUrl = stages[props.settings.game][props.matchStats.stage.internal_name];
+  const players = {
+    1: Object.values(props.matchStats.players).find(p => p.player == 1),
+    2: Object.values(props.matchStats.players).find(p => p.player == 2),
+  };
 
   const {
     data,
@@ -33,12 +37,34 @@ const HealthGraph = (props: HealthGraphProps) => {
         Game { props.matchStats.index_in_set }
       </div>
       <div className="h-24 font-bold flex items-center justify-center text-5xl uppercase"
-           style={{background: `url("${stageUrl}") center`}}>
+           style={{background: `url("${stageUrl}") center no-repeat`, backgroundSize: 'cover'}}>
       </div>
-      <div className="graphContainer pt-8 px-8">
+      <div className="graphContainer">
         <Line data={data}
               options={options}
               plugins={plugins} />
+        <div className="h-24 text-5xl flex w-full justify-between items-center px-8 pb-8">
+          <div className="flex flex-row-reverse items-center">
+            <div className="p-8">
+              { players[1].player_tag }
+            </div>
+            <div className="h-16"
+                 style={{backgroundColor: '#fd5f5f'}}>
+              <img src={ characters[props.settings.game][players[1].character.internal_name] }
+                   className="h-full"/>
+            </div>
+          </div>
+          <div className="flex flex-row items-center">
+            <div className="p-8">
+              { players[2].player_tag }
+            </div>
+            <div className="bg-blue-500 h-16"
+                 style={{backgroundColor: '#3232ff'}}>
+              <img src={ characters[props.settings.game][players[2].character.internal_name] }
+                   className="h-full"/>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="h-10">
         <MetascouterLogo />
@@ -62,8 +88,10 @@ const StyledHealthGraph = styled(HealthGraph)`
   .graphContainer {
     background-color: ${props => props.theme.black};
     width: 1080px;
-    height: 580px;
     margin-left: -220px;
+    canvas {
+      margin: auto;
+    }
   }
 `
 
