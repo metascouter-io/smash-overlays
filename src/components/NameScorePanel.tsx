@@ -18,8 +18,7 @@ const NameScorePanel = (props: NameScorePanelProps) => {
           <div>
             { props.prefix }
           </div>
-        </div>
-        : null
+        </div> : <div className="h-16 m-2"></div>
       }
       <div className="playerTagContainer mx-4 flex flex-col justify-center items-center">
         <div className="playerTag h-16 px-3 text-3xl flex justify-center items-center text-center">
