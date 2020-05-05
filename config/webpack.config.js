@@ -75,6 +75,7 @@ module.exports = function(webpackEnv) {
           // https://github.com/facebook/create-react-app/issues/2677
           ident: 'postcss',
           plugins: () => [
+            require('tailwindcss'),
             require('postcss-flexbugs-fixes'),
             require('postcss-preset-env')({
               autoprefixer: {
@@ -110,8 +111,11 @@ module.exports = function(webpackEnv) {
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
-      main: [isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'), paths.appIndexJs].filter(Boolean),
-      xsplit_config: [isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'), paths.xsplitConfigJs].filter(Boolean),
+      main: [
+        isEnvDevelopment && require.resolve('react-dev-utils/webpackHotDevClient'),
+        isEnvDevelopment && require.resolve('react-hot-loader/patch'),
+        paths.appIndexJs
+      ].filter(Boolean),
       vendors: ['react', 'react-dom']
     },
     output: {
@@ -153,7 +157,11 @@ module.exports = function(webpackEnv) {
       // for React Native Web.
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts'))
+        .filter(ext => useTypeScript || !ext.includes('ts')),
+      // We swap out react-dom with the HMR shim in dev mode
+      alias: {
+        'react-dom': isEnvProduction ? 'react-dom' : '@hot-loader/react-dom'
+      }
     },
     module: {
       strictExportPresence: true,
@@ -161,23 +169,6 @@ module.exports = function(webpackEnv) {
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },
 
-        // First, run the linter.
-        // It's important to do this before Babel processes the JS.
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          enforce: 'pre',
-          use: [
-            {
-              options: {
-                formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                eslintPath: require.resolve('eslint'),
-                
-              },
-              loader: require.resolve('eslint-loader'),
-            },
-          ],
-          include: paths.appSrc,
-        },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -218,6 +209,9 @@ module.exports = function(webpackEnv) {
                   ],
                   [
                     require.resolve('babel-plugin-styled-components')
+                  ],
+                  [
+                    require.resolve('react-hot-loader/babel')
                   ]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
@@ -354,20 +348,10 @@ module.exports = function(webpackEnv) {
                   minifyCSS: true,
                   minifyURLs: true,
                 },
-                configLocation: 'https://sfv-broadcast.metascouter.gg/xsplit/config.html'
               }
-            : {
-              configLocation: 'http://localhost:3000/xsplit/config.html'
-            }
+          : {}
         ),
       ),
-      // XSplit files
-      new HtmlWebpackPlugin({
-        inject: true,
-        filename: paths.xsplitConfigHtmlBuild,
-        template: paths.xsplitConfigHtml,
-        chunks: ['xsplit_config', 'vendor']
-      }),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">

@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './shared/main.css';
+import './main.css';
 
-// import * as serviceWorker from './serviceWorker';
+import 'tailwindcss/dist/tailwind.min.css';
+
 
 ReactDOM.render(<App/>, document.getElementById('app'));
