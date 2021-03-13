@@ -62,7 +62,7 @@
     "@types/react-redux": "^7.1.7",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
-    "apexcharts": "^3.8.4",
+    "apexcharts": "^3.24.0",
     "axios": "^0.19.2",
     "chart.js": "^2.8.0",
     "react": "^16.8.6",
