@@ -27,6 +27,9 @@ jobs:
       - run: 
           name: Upload source to S3 buckets
           command: aws s3 sync ./build s3://smash-overlays.metascouter.gg
+      - run: 
+          name: Invalidate cloudfront cache
+          command: aws cloudfront create-invalidation --distribution-id=E1OXN9FRUQVOI9 --paths='/*'
 
 workflows:
   version: 2
